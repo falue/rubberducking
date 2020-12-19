@@ -1,32 +1,15 @@
 <template>
   <v-app>
-    <v-app-bar
+    <!-- <v-app-bar
       app
       color="primary"
       dark
     >
       <router-link to="/">
-        <v-img
-        width="125"
-        contain
-          alt="Logo"
-          :src="require('./assets/logo.png')"
-          transition="scale-transition"
-        />
+        <v-icon x-large class="white--text">
+          mdi-duck
+        </v-icon>
       </router-link>
-
-      <v-spacer></v-spacer>
-
-      <v-form>
-        <v-text-field
-          class="mt-6"
-          placeholder="Find.."
-          filled
-          rounded
-          dense
-          append-icon="mdi-magnify"
-        ></v-text-field>
-      </v-form>
 
       <v-spacer></v-spacer>
 
@@ -37,38 +20,35 @@
         <v-btn color="primary" depressed>About</v-btn>
       </router-link>
 
-    </v-app-bar>
+    </v-app-bar> -->
 
     <v-main>
-   <!--     <v-row class="text-center">
-     <v-col cols="12">
-        <v-img
-          :src="require('./assets/logo.png')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-     
-    </v-row> -->
       <router-view></router-view>
     </v-main>
+
+    <v-card-title class="justify-center caption grey--text fill-width pb-6 mb-6">
+      <div class="text-center">
+        Proudly made by <a href="http://www.fluescher.ch" target="_blank" class="px-1">Fabian Lüscher</a>
+        for you <v-icon x-small class="error--text px-1">mdi-heart</v-icon>
+        <br>
+        <router-link to="/license" v-tooltip="'See creative commons license'">CC0 1.0</router-link>
+        - 2020
+        <br>
+        Like this? <a href="https://paypal.me/fluescher" target="_blank">Please support this project on paypal</a>
+      </div>
+    </v-card-title>
     
   </v-app>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-
 export default {
   name: 'App',
 
   components: {
-    //HelloWorld,
   },
 
   data: () => ({
-    //
   }),
 };
 </script>

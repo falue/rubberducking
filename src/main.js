@@ -3,6 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
+import helpers from "./assets/helpers"; // Use global helper functions
+
+const jsHelpers = {
+  install() {
+    Vue.helpers = helpers;
+    Vue.prototype.$helpers = helpers;
+  },
+};
+Vue.use(jsHelpers);
 
 Vue.config.productionTip = false
 
