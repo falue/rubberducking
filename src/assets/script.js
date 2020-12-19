@@ -6,7 +6,7 @@ export default [
     "What are you trying to accomplish?",
     "Tell me about the thing.",
   ],
-  // PHASE 2
+  // PHASE 2 - pick 4
   [
     "Tell me about your project.",
     "I can't hear you.##Please speak up.",
@@ -29,11 +29,11 @@ export default [
   ],
   // PHASE 3
   [
-    "Well then, what should it do?##What is it doing instead?",
+    "Well then, what should it do?##And What is it doing instead?",
     "Whats up with that thing you make?##Why does it not work?",
     "Very interesting problem to solve!",
   ],
-  // PHASE 4
+  // PHASE 4 - pick 6
   [
     "But then happens what?",
     "Ok, but then what?",

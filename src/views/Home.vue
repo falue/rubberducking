@@ -1,4 +1,9 @@
 <template>
+
+<v-container fill-height fluid>
+  <v-row align="center"
+      justify="center">
+      <v-col>
   <v-card
     class="mx-auto my-4"
     max-width="450"
@@ -25,11 +30,12 @@
         :src="require('../assets/rubberduck.png')"
         transition="scale-transition"
         @click="startDucking()"
-      />
+      >
+      <v-icon large v-if="speaking" class="red--text">
+        mdi-waveform
+      </v-icon>
+    </v-img>
 
-    <v-icon large v-if="speaking" class="red--text">
-      mdi-waveform
-    </v-icon>
 
     <!--
       script ist eingeteilt in 6 phasen. jeweils array mit diversen textbausteinen (split strings #: mehrere bubbles nacheinander, etwas zeitversetzt erscheint zweite oder dritte nachricht):
@@ -43,6 +49,9 @@
 7. That'll be 400USD please ;)
  -->
   </v-card>
+      </v-col>
+  </v-row>
+</v-container>
 </template>
 <script>
 import script from '../assets/script.js';
