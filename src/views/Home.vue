@@ -118,7 +118,7 @@ export default {
       let voiceGB = 0;
       let voiceUS = 0;
       for(let i = 0; i < this.voiceList.length; i++) {
-        console.log(i, this.voiceList[i].name, this.voiceList[i].lang, this.voiceList[i].lang === 'en-GB', this.voiceList[i].lang.startsWith('en-'));
+        //console.log(i, this.voiceList[i].name, this.voiceList[i].lang, this.voiceList[i].lang === 'en-GB', this.voiceList[i].lang.startsWith('en-'));
         // look for en-GB
         if(this.voiceList[i].lang === 'en-GB') voiceGB = i;
         // look for en-
@@ -142,13 +142,14 @@ export default {
       }
     },
     async startDucking() {
-      this.selectedVoice = this.setVoice();
-
       // Do not start again if in progress
       if(this.debuggingInProgress) {
-        this.speak("Quack");
-        await this.$helpers.sleep(1000);
+        if(!this.mute) {
+          this.speak("Quack");
+          await this.$helpers.sleep(1000);
+        }
       } else {
+        this.selectedVoice = this.setVoice();
         this.debuggingInProgress = true;
         this.clearMessages();
 
