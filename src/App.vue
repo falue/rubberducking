@@ -31,7 +31,7 @@
         Proudly made by <a href="http://www.fluescher.ch" target="_blank" class="px-1">Fabian Lüscher</a>
         for you <v-icon x-small class="error--text px-1">mdi-heart</v-icon>
         <br>
-        <router-link to="/license" v-tooltip="'See creative commons license'">CC0 1.0</router-link>
+        <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="See creative commons license">CC0 1.0</a>
         - 2020
         <br>
         Like this? <a href="https://paypal.me/fluescher" target="_blank">Please support this project on paypal</a>
