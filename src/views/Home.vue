@@ -41,12 +41,15 @@
               :src="require('../assets/rubberduck.png')"
               @click="startDucking()"
             >
-            <!--  <v-icon large v-if="speaking" class="red--text">
-              mdi-waveform
-            </v-icon> -->
 
-          <!-- ABOUT BUTTON -->
           <div class="text-right">
+            <!-- SPEAKER -->
+            <v-btn icon @click="mute = !mute">
+              <v-icon class="grey--text">
+                {{mute ? 'mdi-volume-mute' : 'mdi-volume-high'}}
+              </v-icon>
+            </v-btn>
+            <!-- ABOUT BUTTON -->
             <v-btn icon @click="about = true">
               <v-icon class="grey--text">
                 mdi-information-variant
@@ -91,6 +94,7 @@ export default {
       messageIndex: 0,
       currentMessages: [],
       spokenMessages: [],
+      mute: false,
       about: false,
       debuggingInProgress: false,
       // speeeech
@@ -175,12 +179,17 @@ export default {
       let messages = this.script[this.stage][this.messageIndex].split("##");
       let bubblesPerMessage = messages.length;
       for(let i = 0; i < bubblesPerMessage; i++) {
-        console.log(this.stage, this.messageIndex, i);
+        // console.log(this.stage, this.messageIndex, i);
         this.currentMessages.push(messages[i]);
-        this.speak(this.prepareBeforeSpoken(messages[i]));
+        if(this.mute) {
+          this.speaking = true;
+        } else {
+          this.speak(this.prepareBeforeSpoken(messages[i]));
+        }
         await this.$helpers.sleep(this.$helpers.randomBetween(500, 2000));  // wait inbetween 
       }
       await this.$helpers.sleep(3000);
+      if(this.mute) this.speaking = false;
       await this.clearMessages();
       await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
     },
