@@ -129,11 +129,11 @@ export default {
       }
     },
     async startDucking() {
-      this.speak("Quack");
-      await this.$helpers.sleep(1000);
-
       // Do not start again if in progress
-      if(!this.debuggingInProgress) {
+      if(this.debuggingInProgress) {
+        this.speak("Quack");
+        await this.$helpers.sleep(1000);
+      } else {
         this.debuggingInProgress = true;
         this.clearMessages();
 
