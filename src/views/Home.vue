@@ -14,13 +14,18 @@
       <v-row>
         <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
           <!-- MESSAGES -->
-          <transition-group name="scale-transition" class="pt-6">
-            <div v-for="(currentMessage, i) in currentMessages" :key="i">
+          <transition-group name="scale-transition">
+            <div v-for="(currentMessage, i) in currentMessages" :key="i" class="">
               <div
                 class="rounded elevation-5 ma-2 px-4 py-2 white--text inline-block primary"
                 v-html="currentMessage"
               >
               </div>
+                <div
+                  class="relative"
+                  :class="$vuetify.breakpoint.smAndUp ? 'right triangleBottom' : 'left triangleLeft'"
+                ><v-icon x-small color="primary">mdi-triangle</v-icon>
+                </div>
             </div>
           </transition-group>
         </v-col>
@@ -223,5 +228,13 @@ export default {
     -webkit-transform-origin:50% 50%;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
+  }
+
+  .triangleBottom {
+    transform: translateX(-.1em) translateY(-1.8em)
+  }
+
+  .triangleLeft {
+    transform: translateX(0.8em) translateY(-1em) scale(1, -1);
   }
 </style>
