@@ -36,6 +36,13 @@
       </v-icon>
     </v-img>
 
+    <v-btn icon @click="about = true">
+      <v-icon large class="grey--text">
+        mdi-information-variant
+      </v-icon>
+    </v-btn>
+
+    <About v-if="about" @close="about=false"/>
 
     <!--
       script ist eingeteilt in 6 phasen. jeweils array mit diversen textbausteinen (split strings #: mehrere bubbles nacheinander, etwas zeitversetzt erscheint zweite oder dritte nachricht):
@@ -55,10 +62,12 @@
 </template>
 <script>
 import script from '../assets/script.js';
+//import About from '@/components/About'
 
 export default {
   name: 'Home',
   components: {
+    //About
   },
   data () {
     return {
@@ -67,6 +76,7 @@ export default {
       messageIndex: 0,
       currentMessages: [],
       spokenMessages: [],
+      about: true,
       // speeeech
       speaking: false,
       selectedVoice: 51,
