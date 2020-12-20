@@ -6,41 +6,49 @@
       <v-col>
   <v-card
     class="mx-auto my-4"
-    max-width="450"
+    max-width="850"
     elevation="0"
   >
     <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1> -->
+    <v-container>
+      <v-row>
+        <v-col cols="12" xs="12" sm="6" class="miny-200" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
+            <!-- MESSAGES -->
+            <transition-group name="scale-transition" class="pt-6">
+            <div
+              style="display: inline-block"
+              v-for="(currentMessage, i) in currentMessages" :key="i"
+              class="rounded elevation-5 ma-2 px-4 py-2 white--text inline primary"
+              v-html="currentMessage"
+            >
+            </div>
+          </transition-group>
+        </v-col>
 
-    <transition-group name="scale-transition" 
-      class="pt-6">
-      <div
-        style="display: inline-block"
-        v-for="(currentMessage, i) in currentMessages" :key="i"
-        class="rounded elevation-5 ma-2 px-4 py-2 white--text inline primary"
-        v-html="currentMessage"
-      >
-      </div>
-    </transition-group>
+        <v-col cols="12" xs="12" sm="6" align="right">
+          <!-- DUCKY -->
+          <v-img
+            class="pt-6"
+            contain
+            alt="Logo"
+            :src="require('../assets/rubberduck.png')"
+            transition="scale-transition"
+            @click="startDucking()"
+          >
+            <v-icon large v-if="speaking" class="red--text">
+              mdi-waveform
+            </v-icon>
+          </v-img>
 
-    <v-img
-      width="333"
-      class="pt-6"
-      contain
-        alt="Logo"
-        :src="require('../assets/rubberduck.png')"
-        transition="scale-transition"
-        @click="startDucking()"
-      >
-      <v-icon large v-if="speaking" class="red--text">
-        mdi-waveform
-      </v-icon>
-    </v-img>
-
-    <v-btn icon @click="about = true">
-      <v-icon class="grey--text">
-        mdi-information-variant
-      </v-icon>
-    </v-btn>
+          <!-- ABOUT BUTTON -->
+          <v-btn icon @click="about = true">
+            <v-icon class="grey--text">
+              mdi-information-variant
+            </v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
 
     <About v-if="about" @close="about=false" />
 
