@@ -156,7 +156,7 @@ export default {
         for(let i = 0; i < this.script.length; i++) {
           this.stage = i;
           // Depending on the state, multiplay this step for certain times.
-          let repeats = i === 1 ? 4 : i === 3 ? 6 : 1;
+          let repeats = i === 2 ? 4 : i === 4 ? 6 : 1;
           for(let x = 0; x < repeats; x++) {
             await this.displayMessage();
           }
@@ -207,6 +207,8 @@ export default {
     },
 
     prepareBeforeSpoken(text) {
+      text = text.replace("I'm", "I am");
+      text = text.replace("Sir/Madame", "Sir stroke Madame");
       text = text.replace("';'", "semicolon");
       text = text.replace("'\"'", "quotes");
       text = text.replace("'''", "single quotes");
