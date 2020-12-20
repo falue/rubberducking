@@ -110,9 +110,8 @@ export default {
     this.synth.onvoiceschanged = () => {  // Needed to keep the right voice
       this.voiceList = this.synth.getVoices();
     }
-    for(let i = 0; i < this.voiceList.length; i++) {
-      console.log(i, this.voiceList[i].name, this.voiceList[i].lang);
-    }
+    this.selectedVoice = this.setVoice();
+    
     this.listenForSpeechEvents();
     
     // this.startDucking();
@@ -122,6 +121,21 @@ export default {
   },
 
   methods: {
+    setVoice() {
+      let voiceGB = 0;
+      let voiceUS = 0;
+      for(let i = 0; i < this.voiceList.length; i++) {
+        console.log(i, this.voiceList[i].name, this.voiceList[i].lang, this.voiceList[i].lang === 'en-GB', this.voiceList[i].lang.startsWith('en-'));
+        // look for en-GB
+        if(this.voiceList[i].lang === 'en-GB') voiceGB = i;
+        // look for en-
+        if(this.voiceList[i].lang.startsWith('en-')) voiceUS = i;
+      }
+      if(voiceGB > 0) return voiceGB;
+      if(voiceUS > 0) return voiceUS;
+      return 0
+    },
+
     listenForSpeechEvents () {
       this.Speech.onstart = () => {
         this.speaking = true;
