@@ -28,9 +28,10 @@
         <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center">
           <!-- DUCKY -->
             <img
-              class="pt-6 pointer"
+              class="pt-6"
+              :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
               width="100%"
-              style="max-width:550px"              
+              style="max-width:550px"
               alt="Logo"
               :src="require('../assets/rubberduck.png')"
               @click="startDucking()"
@@ -123,22 +124,28 @@ export default {
       }
     },
     async startDucking() {
-      this.debuggingInProgress = true;
-      this.clearMessages();
+      this.speak("Quack");
+      await this.$helpers.sleep(1000);
 
-      for(let i = 0; i < this.script.length; i++) {
-        this.stage = i;
-        // Depending on the state, multiplay this step for certain times.
-        let repeats = i === 1 ? 4 : i === 3 ? 6 : 1;
-        for(let x = 0; x < repeats; x++) {
-          await this.displayMessage();
+      // Do not start again if in progress
+      if(!this.debuggingInProgress) {
+        this.debuggingInProgress = true;
+        this.clearMessages();
+
+        for(let i = 0; i < this.script.length; i++) {
+          this.stage = i;
+          // Depending on the state, multiplay this step for certain times.
+          let repeats = i === 1 ? 4 : i === 3 ? 6 : 1;
+          for(let x = 0; x < repeats; x++) {
+            await this.displayMessage();
+          }
+          this.spokenMessages = [];
         }
-        this.spokenMessages = [];
+        //clean up at the end
+        await this.$helpers.sleep(2000);
+        await this.clearMessages();
+        this.debuggingInProgress = false;  // ???
       }
-      //clean up at the end
-      await this.$helpers.sleep(2000);
-      await this.clearMessages();
-      this.debuggingInProgress = false;  // ???
     },
 
     randomMessage(max) {
