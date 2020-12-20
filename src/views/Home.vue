@@ -186,12 +186,12 @@ export default {
     },
 
     prepareBeforeSpoken(text) {
-      text = this.$helpers.stripHtml(text);
       text = text.replace("';'", "semicolon");
       text = text.replace("'\"'", "quotes");
       text = text.replace("'''", "single quotes");
       text = text.replace("'“'", "cursive quotes");
       text = text.replace("'‘'", "cursive single quotes");
+      text = this.$helpers.stripHtml(text);
       return text;
     },
 
