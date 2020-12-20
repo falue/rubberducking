@@ -12,40 +12,41 @@
     <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1> -->
     <v-container>
       <v-row>
-        <v-col cols="12" xs="12" sm="6" class="miny-200" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
-            <!-- MESSAGES -->
-            <transition-group name="scale-transition" class="pt-6">
-            <div
-              style="display: inline-block"
-              v-for="(currentMessage, i) in currentMessages" :key="i"
-              class="rounded elevation-5 ma-2 px-4 py-2 white--text inline primary"
-              v-html="currentMessage"
-            >
+        <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
+          <!-- MESSAGES -->
+          <transition-group name="scale-transition" class="pt-6">
+            <div v-for="(currentMessage, i) in currentMessages" :key="i">
+              <div
+                class="rounded elevation-5 ma-2 px-4 py-2 white--text inline-block primary"
+                v-html="currentMessage"
+              >
+              </div>
             </div>
           </transition-group>
         </v-col>
 
-        <v-col cols="12" xs="12" sm="6" align="right">
+        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center">
           <!-- DUCKY -->
-          <v-img
-            class="pt-6"
-            contain
-            alt="Logo"
-            :src="require('../assets/rubberduck.png')"
-            transition="scale-transition"
-            @click="startDucking()"
-          >
-            <v-icon large v-if="speaking" class="red--text">
+            <img
+              class="pt-6 pointer"
+              width="100%"
+              style="max-width:550px"              
+              alt="Logo"
+              :src="require('../assets/rubberduck.png')"
+              @click="startDucking()"
+            >
+            <!--  <v-icon large v-if="speaking" class="red--text">
               mdi-waveform
-            </v-icon>
-          </v-img>
+            </v-icon> -->
 
           <!-- ABOUT BUTTON -->
-          <v-btn icon @click="about = true">
-            <v-icon class="grey--text">
-              mdi-information-variant
-            </v-icon>
-          </v-btn>
+          <div class="text-right">
+            <v-btn icon @click="about = true">
+              <v-icon class="grey--text">
+                mdi-information-variant
+              </v-icon>
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -85,6 +86,7 @@ export default {
       currentMessages: [],
       spokenMessages: [],
       about: false,
+      debuggingInProgress: false,
       // speeeech
       speaking: false,
       selectedVoice: 51,
@@ -121,6 +123,7 @@ export default {
       }
     },
     async startDucking() {
+      this.debuggingInProgress = true;
       this.clearMessages();
 
       for(let i = 0; i < this.script.length; i++) {
@@ -135,6 +138,7 @@ export default {
       //clean up at the end
       await this.$helpers.sleep(2000);
       await this.clearMessages();
+      this.debuggingInProgress = false;  // ???
     },
 
     randomMessage(max) {
