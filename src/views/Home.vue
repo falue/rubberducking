@@ -180,8 +180,9 @@ export default {
         this.speak(this.prepareBeforeSpoken(messages[i]));
         await this.$helpers.sleep(this.$helpers.randomBetween(500, 2000));  // wait inbetween 
       }
-      await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
+      await this.$helpers.sleep(3000);
       await this.clearMessages();
+      await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
     },
 
     prepareBeforeSpoken(text) {
