@@ -14,7 +14,7 @@
       <v-row>
         <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200 py-0" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
           <!-- MESSAGES -->
-          <transition-group name="scale-transition">
+          <transition-group name="slide-x-reverse-transition">
             <div v-for="(currentMessage, i) in currentMessages" :key="i" class="">
               <div
                 class="rounded elevation-5 ma-2 px-4 py-2 white--text inline-block primary"
