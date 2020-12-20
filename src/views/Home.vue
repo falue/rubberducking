@@ -100,6 +100,7 @@ export default {
       synth: window.speechSynthesis,
       voiceList: [],
       Speech: new window.SpeechSynthesisUtterance(),
+      quacks: ["Quack", "Quaack!", "Quack, quack", "Quack!", "Quack eroni.", "Quaaaaak!"],
     } 
   },
   created() {
@@ -145,7 +146,7 @@ export default {
       // Do not start again if in progress
       if(this.debuggingInProgress) {
         if(!this.mute) {
-          this.speak("Quack");
+          this.speak(this.quacks[this.$helpers.randomBetween(0, this.quacks.length-1)]);
           await this.$helpers.sleep(1000);
         }
       } else {
