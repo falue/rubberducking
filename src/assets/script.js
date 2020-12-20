@@ -60,7 +60,7 @@ export default [
     "Have you read the documentation?##Have you REALLY read the documentation?",
     "Is there a missing ';' before the error message?",
     "Is the identation as it's supposed to?",
-    "Are your <pre>\"</pre> and <pre>'</pre> inserted like this <pre>“</pre> or that <pre>‘</pre>?",
+    "Are your '\"' and ''' inserted like this '“' or that '‘'?",
     "Did you use semantic variable names to make things clearer?",
     "Do you use a <a>code linter</a> to make things clearer?",
     "Did you take a walk in the park?",

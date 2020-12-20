@@ -165,11 +165,21 @@ export default {
       for(let i = 0; i < bubblesPerMessage; i++) {
         console.log(this.stage, this.messageIndex, i);
         this.currentMessages.push(messages[i]);
-        this.speak(this.$helpers.stripHtml(messages[i]));
+        this.speak(this.prepareBeforeSpoken(messages[i]));
         await this.$helpers.sleep(this.$helpers.randomBetween(500, 2000));  // wait inbetween 
       }
       await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
       await this.clearMessages();
+    },
+
+    prepareBeforeSpoken(text) {
+      text = this.$helpers.stripHtml(text);
+      text = text.replace("';'", "semicolon");
+      text = text.replace("'\"'", "quotes");
+      text = text.replace("'''", "single quotes");
+      text = text.replace("'“'", "cursive quotes");
+      text = text.replace("'‘'", "cursive single quotes");
+      return text;
     },
 
     async clearMessages() {
