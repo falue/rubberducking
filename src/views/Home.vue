@@ -63,8 +63,6 @@
     <About v-if="about" @close="about=false" />
 
     <!--
-      script ist eingeteilt in 6 phasen. jeweils array mit diversen textbausteinen (split strings #: mehrere bubbles nacheinander, etwas zeitversetzt erscheint zweite oder dritte nachricht):
-(texte dürfen HTML beinhalten für links etc)
 1. welcome (randomly pick 1)
 2. Explain project/situation (randomly pick 3-6)
 3. Übergangstexte zu phase 4 (randomly pick 1)
@@ -99,7 +97,7 @@ export default {
       debuggingInProgress: false,
       // speeeech
       speaking: false,
-      selectedVoice: 51,
+      selectedVoice: 0,
       synth: window.speechSynthesis,
       voiceList: [],
       Speech: new window.SpeechSynthesisUtterance(),
@@ -110,11 +108,7 @@ export default {
     this.synth.onvoiceschanged = () => {  // Needed to keep the right voice
       this.voiceList = this.synth.getVoices();
     }
-    this.selectedVoice = this.setVoice();
-    
     this.listenForSpeechEvents();
-    
-    // this.startDucking();
   },
 
   computed: {
@@ -131,6 +125,8 @@ export default {
         // look for en-
         if(this.voiceList[i].lang.startsWith('en-')) voiceUS = i;
       }
+      // console.log("voiceGB:", voiceGB);
+      // console.log("voiceUS:", voiceUS);
       if(voiceGB > 0) return voiceGB;
       if(voiceUS > 0) return voiceUS;
       return 0
@@ -147,6 +143,8 @@ export default {
       }
     },
     async startDucking() {
+      this.selectedVoice = this.setVoice();
+
       // Do not start again if in progress
       if(this.debuggingInProgress) {
         this.speak("Quack");
