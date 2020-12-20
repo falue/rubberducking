@@ -3,16 +3,16 @@
 <v-container fill-height fluid>
   <v-row align="center"
       justify="center">
-      <v-col>
+      <v-col class="py-0">
   <v-card
     class="mx-auto my-4"
     max-width="850"
     elevation="0"
   >
     <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1> -->
-    <v-container>
+    <v-container class="py-0">
       <v-row>
-        <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
+        <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200 py-0" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
           <!-- MESSAGES -->
           <transition-group name="scale-transition">
             <div v-for="(currentMessage, i) in currentMessages" :key="i" class="">
@@ -30,10 +30,9 @@
           </transition-group>
         </v-col>
 
-        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center">
+        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center py-0">
           <!-- DUCKY -->
             <img
-              class="pt-6"
               :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
               width="100%"
               style="max-width:550px"
