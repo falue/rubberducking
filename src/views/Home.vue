@@ -163,7 +163,6 @@ export default {
           this.spokenMessages = [];
         }
         //clean up at the end
-        await this.$helpers.sleep(2000);
         await this.clearMessages();
         this.debuggingInProgress = false;  // ???
       }
