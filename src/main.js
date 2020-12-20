@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import helpers from "./assets/helpers"; // Use global helper functions
+import "../static/vuetify-additions.css";
 
 const jsHelpers = {
   install() {
