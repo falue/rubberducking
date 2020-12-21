@@ -2,6 +2,12 @@
   <v-dialog v-model="dialog" max-width="600" overlay-color="white">
     <v-card>
       <v-card-title>
+        <img
+          class="mr-3"
+          style="max-width:60px"
+          alt="icon"
+          :src="require('../assets/icon.png')"
+        >
         This is a silly website.
       </v-card-title>
       <v-card-text>
@@ -12,10 +18,12 @@
       <v-card-subtitle class="italics">
         From <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging" target="_blank">wikipedia.org/wiki/Rubber_duck_debugging</a>
       </v-card-subtitle>
-      <v-card-actions>
-        <v-btn @click="dialog=false">
+      <v-card-actions class="pb-5">
+        <v-spacer></v-spacer>
+        <v-btn small class="primary" @click="dialog=false">
           Close
         </v-btn>
+        <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
   </v-dialog>

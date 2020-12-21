@@ -30,9 +30,19 @@
           </transition-group>
         </v-col>
 
-        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center py-0">
-          <!-- DUCKY -->
+        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center relative py-0">
+            <!-- SHADOW -->
             <img
+              class="absolute mr-3"
+              :class="debuggingInProgress ? 'pr-6' : ''"
+              width="100%"
+              style="max-width:550px"
+              alt="Logo Shadow"
+              :src="require('../assets/rubberduck_shadow.png')"
+            >
+            <!-- DUCKY -->
+            <img
+              class="relative"
               :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
               width="100%"
               style="max-width:550px"
@@ -40,7 +50,6 @@
               :src="require('../assets/rubberduck.png')"
               @click="startDucking()"
             >
-
           <div class="text-right">
             <!-- SPEAKER -->
             <v-btn icon @click="mute = !mute">
