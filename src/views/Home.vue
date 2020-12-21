@@ -48,7 +48,7 @@
               :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo"
-              :src="require('../assets/rubberduck.png?v=1')"
+              :src="duckSrc"
               @click="startDucking()"
             >
           
@@ -102,6 +102,7 @@ export default {
       messageIndex: 0,
       currentMessages: [],
       spokenMessages: [],
+      duckSrc: require('../assets/rubberduck.png?v=1'),
       mute: false,
       about: false,
       debuggingInProgress: false,
@@ -153,9 +154,11 @@ export default {
     listenForSpeechEvents () {
       this.Speech.onstart = () => {
         this.speaking = true;
+        this.maybeBlink();
       }
       this.Speech.onend = () => {
         this.speaking = false;
+        this.maybeBlink();
       }
     },
 
@@ -223,7 +226,9 @@ export default {
         }
         await this.$helpers.sleep(this.$helpers.randomBetween(500, 2000));  // wait inbetween 
       }
-      await this.$helpers.sleep(3000);
+      await this.$helpers.sleep(1500);
+      this.maybeBlink();
+      await this.$helpers.sleep(1500);
       if(this.mute) this.speaking = false;
       await this.clearMessages();
       if(this.$helpers.randomBetween(1, 6) === 1) await this.randomDuckyAction();
@@ -262,10 +267,27 @@ export default {
       this.wobble = false;
     },
 
+    async maybeBlink() {
+      if(this.$helpers.randomBetween(1, 6) === 1) {
+        this.duckSrc = require('../assets/rubberduck_blink.png?v=1');
+        await this.$helpers.sleep(this.$helpers.randomBetween(50, 200));
+        this.duckSrc = require('../assets/rubberduck.png?v=1');
+
+        // Second blink
+        if(this.$helpers.randomBetween(1, 6) === 1) {
+          await this.$helpers.sleep(150);
+          this.duckSrc = require('../assets/rubberduck_blink.png?v=1');
+          await this.$helpers.sleep(100);
+          this.duckSrc = require('../assets/rubberduck.png?v=1');
+        }
+      }
+    },
+
     async speak(text) {
       while(this.speaking) {
         await this.$helpers.sleep(50);
       }
+      this.maybeBlink();
       this.synth.cancel();  // Cancel talking to not overlap, which does trigger the old text again
       this.Speech.text = text;
       this.Speech.voice = this.voiceList[this.selectedVoice];
