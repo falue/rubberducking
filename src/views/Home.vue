@@ -15,7 +15,7 @@
         :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
           <!-- MESSAGES -->
           <transition-group name="slide-x-reverse-transition">
-            <div v-for="(currentMessage, i) in currentMessages" :key="i" class="">
+            <div v-for="(currentMessage, i) in currentMessages" :key="i+'xxx'" class="">
               <div
                 class="rounded elevation-5 ma-2 px-4 py-2 white--text inline-block primary"
                 v-html="currentMessage"
