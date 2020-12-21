@@ -1,18 +1,18 @@
 <template>
 
-<v-container fill-height fluid>
-  <v-row align="center"
-      justify="center">
-      <v-col class="py-0">
+<v-container fluid :class="$vuetify.breakpoint.xsOnly ? '' : 'fill-height'">
+  <v-row align="center" justify="center">
+  <v-col class="py-0">
   <v-card
-    class="mx-auto my-4"
+    class="mx-auto my-0"
     max-width="850"
     elevation="0"
   >
     <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1> -->
     <v-container class="py-0">
       <v-row>
-        <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="miny-200 py-0" :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
+        <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="py-0 miny-200"
+        :align="$vuetify.breakpoint.smAndUp ? 'right' : ''">
           <!-- MESSAGES -->
           <transition-group name="slide-x-reverse-transition">
             <div v-for="(currentMessage, i) in currentMessages" :key="i" class="">
@@ -35,7 +35,7 @@
             <img
               class="absolute mr-3"
               :class="debuggingInProgress ? 'pr-6' : ''"
-              width="100%"
+              :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo Shadow"
               :src="require('../assets/rubberduck_shadow.png?v=1')"
@@ -44,7 +44,7 @@
             <img
               class="relative"
               :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
-              width="100%"
+              :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo"
               :src="require('../assets/rubberduck.png?v=1')"

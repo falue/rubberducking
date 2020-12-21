@@ -1,32 +1,12 @@
 <template>
   <v-app>
-    <!-- <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <router-link to="/">
-        <v-icon x-large class="white--text">
-          mdi-duck
-        </v-icon>
-      </router-link>
-
-      <v-spacer></v-spacer>
-
-      <router-link to="/Test" class="mr-2">
-        <v-btn color="primary" depressed>Test</v-btn>
-      </router-link>
-      <router-link to="/About">
-        <v-btn color="primary" depressed>About</v-btn>
-      </router-link>
-
-    </v-app-bar> -->
-
+    <!-- DUCKY -->
     <v-main>
       <router-view></router-view>
     </v-main>
 
-    <v-card-title class="justify-center caption grey--text fill-width" :class="$vuetify.breakpoint.smAndUp ? 'pb-6 mb-6' : ''">
+    <!-- FOOTER -->
+    <v-card-title class="justify-center fixed bottom caption grey--text fill-width" :class="$vuetify.breakpoint.smAndUp ? 'pb-6 mb-6' : ''">
       <div class="text-center">
         Foolishly made by <a href="http://www.fluescher.ch" target="_blank" class="px-1">Fabian Lüscher</a>
         for you <v-icon x-small class="error--text px-1">mdi-heart</v-icon>
