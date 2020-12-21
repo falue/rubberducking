@@ -34,8 +34,8 @@
         :class="!debuggingInProgress && $vuetify.breakpoint.xsOnly ? 'pt-6 mt-6' : ''">
             <!-- SHADOW -->
             <img
-              class="absolute mr-3"
-              :class="debuggingInProgress ? 'pr-6' : ''"
+              class="absolute mr-3 shadow_duck"
+              :class="[debuggingInProgress ? 'pr-6' : '', speaking ? 'speaking' : '']"
               :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo Shadow"
@@ -43,7 +43,7 @@
             >
             <!-- DUCKY -->
             <img
-              class="relative"
+              class="relative duck"
               :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
               :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
@@ -246,6 +246,13 @@ export default {
 </script>
 
 <style scoped>
+  .duck.speaking {
+    -webkit-animation-name: shake;
+    -webkit-animation-duration: 1.8s;
+    -webkit-transform-origin:50% 50%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+  }
   @-webkit-keyframes shake {
     0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
     10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
@@ -259,12 +266,26 @@ export default {
     90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
     100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
   }
-  .speaking {
-    -webkit-animation-name: shake;
+
+  .shadow_duck.speaking {
+    -webkit-animation-name: shake-x;
     -webkit-animation-duration: 1.8s;
     -webkit-transform-origin:50% 50%;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
+  }
+  @-webkit-keyframes shake-x {
+    0% { -webkit-transform: translateX(3px) }
+    10% { -webkit-transform: translateX(-2px) }
+    20% { -webkit-transform: translateX(-3px) }
+    30% { -webkit-transform: translateX(0px) }
+    40% { -webkit-transform: translateX(1px) }
+    50% { -webkit-transform: translateX(-1px) }
+    60% { -webkit-transform: translateX(-4px) }
+    70% { -webkit-transform: translateX(3px) }
+    80% { -webkit-transform: translateX(-1px) }
+    90% { -webkit-transform: translateX(3px) }
+    100% { -webkit-transform: translateX(1px); }
   }
 
   .triangleBottom {
