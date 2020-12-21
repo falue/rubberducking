@@ -128,30 +128,31 @@ export default {
     setVoice() {
       let voiceGB = 0;
       let voiceUS = 0;
+      let voiceDefaultEn = 0;
       for(let i = 0; i < this.voiceList.length; i++) {
         //console.log(i, this.voiceList[i].name, this.voiceList[i].lang, this.voiceList[i].lang === 'en-GB', this.voiceList[i].lang.startsWith('en-'));
-        // look for en-GB
-        if(this.voiceList[i].lang === 'en-GB') voiceGB = i;
-        // look for en-
-        if(this.voiceList[i].lang.startsWith('en-')) voiceUS = i;
+        // look for en-GB and en_GB (android chrome)
+        if(this.voiceList[i].lang === 'en-GB' || this.voiceList[i].lang === 'en_GB') voiceGB = i;
+        // look for en- and en_ (android chrome)
+        if(this.voiceList[i].lang.startsWith('en-') || this.voiceList[i].lang.startsWith('en_')) voiceUS = i;
+        if(this.voiceList[i].lang.startsWith('en')) voiceDefaultEn = i;
       }
       // console.log("voiceGB:", voiceGB);
       // console.log("voiceUS:", voiceUS);
       if(voiceGB > 0) return voiceGB;
       if(voiceUS > 0) return voiceUS;
-      return 0
+      return voiceDefaultEn;
     },
 
     listenForSpeechEvents () {
       this.Speech.onstart = () => {
         this.speaking = true;
-        //console.log("start speech");
       }
       this.Speech.onend = () => {
         this.speaking = false;
-        //console.log("end speech");
       }
     },
+
     async startDucking() {
       // Do not start again if in progress
       if(this.debuggingInProgress) {
@@ -175,9 +176,9 @@ export default {
           }
           this.spokenMessages = [];
         }
-        //clean up at the end
+        // Clean up at the end
         await this.clearMessages();
-        this.debuggingInProgress = false;  // ???
+        this.debuggingInProgress = false;
       }
     },
 
