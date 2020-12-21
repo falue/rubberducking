@@ -262,11 +262,15 @@ export default {
       this.wobble = false;
     },
 
-    speak(text) {
-      // this.synth.cancel();  // Cancel talking to not overlap, which does trigger the old text again
+    async speak(text) {
+      while(this.speaking) {
+        await this.$helpers.sleep(50);
+      }
+      this.synth.cancel();  // Cancel talking to not overlap, which does trigger the old text again
       this.Speech.text = text;
       this.Speech.voice = this.voiceList[this.selectedVoice];
-      if(!this.speaking) this.synth.speak(this.Speech);  // Do not speak if something else is still saying something
+      //if(!this.speaking)  // Do not speak if something else is still saying something
+      this.synth.speak(this.Speech);
     }
   },
 }
