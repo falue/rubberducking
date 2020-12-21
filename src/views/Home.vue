@@ -35,7 +35,7 @@
             <!-- SHADOW -->
             <img
               class="absolute mr-3 shadow_duck"
-              :class="[debuggingInProgress ? 'pr-6' : '', speaking ? 'speaking' : '']"
+              :class="[debuggingInProgress ? 'pr-6' : '', speaking ? 'speaking' : '', shake ? 'shake' : '', bounce ? 'bounce' : '', wobble ? 'wobble' : '', squeeze ? 'squeeze' : '']"
               :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo Shadow"
@@ -44,15 +44,16 @@
             <!-- DUCKY -->
             <img
               class="relative duck"
-              :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '']"
+              :class="[debuggingInProgress ? '' : 'pointer', speaking ? 'speaking' : '', shake ? 'shake' : '', bounce ? 'bounce' : '', wobble ? 'wobble' : '', squeeze ? 'squeeze' : '']"
               :width="$vuetify.breakpoint.smAndUp ? '100%' : '80%'"
               style="max-width:550px"
               alt="Logo"
               :src="require('../assets/rubberduck.png?v=1')"
               @click="startDucking()"
             >
+          
           <div class="text-right">
-            <!-- SPEAKER -->
+            <!-- MUTE BUTTON -->
             <v-btn icon @click="mute = !mute">
               <v-icon class="grey--text">
                 {{mute ? 'mdi-volume-mute' : 'mdi-volume-high'}}
@@ -104,6 +105,11 @@ export default {
       mute: false,
       about: false,
       debuggingInProgress: false,
+      // Ducky actions
+      bounce: false,
+      shake: false,
+      wobble: false,
+      squeeze: false,
       // speeeech
       speaking: false,
       selectedVoice: 0,
@@ -156,12 +162,15 @@ export default {
     async startDucking() {
       // Do not start again if in progress
       if(this.debuggingInProgress) {
+        // Squeeze the duck
+        this.squeeze = true;
         let quack = this.quacks[this.$helpers.randomBetween(0, this.quacks.length-1)];
-        if(this.currentMessages.length < 6) this.currentMessages.push(quack);
+        if(this.currentMessages.length < 4) this.currentMessages.push(quack);
         if(!this.mute) {
           this.speak(quack);
           await this.$helpers.sleep(1000);
         }
+        this.squeeze = false;
       } else {
         this.selectedVoice = this.setVoice();
         this.debuggingInProgress = true;
@@ -179,6 +188,7 @@ export default {
         // Clean up at the end
         await this.clearMessages();
         this.debuggingInProgress = false;
+        await this.randomDuckyAction();
       }
     },
 
@@ -216,6 +226,7 @@ export default {
       await this.$helpers.sleep(3000);
       if(this.mute) this.speaking = false;
       await this.clearMessages();
+      if(this.$helpers.randomBetween(1, 6) === 1) await this.randomDuckyAction();
       await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
     },
 
@@ -236,6 +247,21 @@ export default {
       await this.$helpers.sleep(200);
     },
 
+    async randomDuckyAction() {
+      let rand = this.$helpers.randomBetween(1, 3);
+      if(rand === 1) {
+        this.bounce = true;
+      } else if(rand === 2) {
+        this.shake = true;
+      } else {
+        this.wobble = true;
+      }
+      await this.$helpers.sleep(2000);
+      this.bounce = false;
+      this.shake = false;
+      this.wobble = false;
+    },
+
     speak(text) {
       // this.synth.cancel();  // Cancel talking to not overlap, which does trigger the old text again
       this.Speech.text = text;
@@ -247,14 +273,25 @@ export default {
 </script>
 
 <style scoped>
+  .triangleBottom {
+    transform: translateX(-.1em) translateY(-1.8em)
+  }
+  .triangleLeft {
+    transform: translateX(0.8em) translateY(-1em) scale(1, -1);
+  }
+
+  /* ANIMATIONS */
+  /* check for animations: https://codepen.io/nelledejones/pen/gOOPWrK?editors=0100 */
+
+  /* SPEAKING */
   .duck.speaking {
-    -webkit-animation-name: shake;
+    -webkit-animation-name: speaking;
     -webkit-animation-duration: 1.8s;
     -webkit-transform-origin:50% 50%;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
   }
-  @-webkit-keyframes shake {
+  @-webkit-keyframes speaking {
     0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
     10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
     20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
@@ -267,15 +304,14 @@ export default {
     90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
     100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
   }
-
   .shadow_duck.speaking {
-    -webkit-animation-name: shake-x;
+    -webkit-animation-name: speaking-shadow;
     -webkit-animation-duration: 1.8s;
     -webkit-transform-origin:50% 50%;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
   }
-  @-webkit-keyframes shake-x {
+  @-webkit-keyframes speaking-shadow {
     0% { -webkit-transform: translateX(3px) }
     10% { -webkit-transform: translateX(-2px) }
     20% { -webkit-transform: translateX(-3px) }
@@ -289,11 +325,94 @@ export default {
     100% { -webkit-transform: translateX(1px); }
   }
 
-  .triangleBottom {
-    transform: translateX(-.1em) translateY(-1.8em)
+
+  /* BOUNCE */
+  .duck.bounce {
+    animation: bounce 2s ease infinite;
+  }
+  @keyframes bounce {
+      70% { transform:translateY(0%); }
+      80% { transform:translateY(-15%) rotate(-5deg); }
+      90% { transform:translateY(0%); }
+      95% { transform:translateY(-7%) rotate(0); }
+      97% { transform:translateY(0%); }
+      99% { transform:translateY(-3%) rotate(3deg); }
+      100% { transform:translateY(0) rotate(0); }
+  }
+  .shadow_duck.bounce {
+    animation: bounce-shadow 2s ease infinite;
+    -webkit-transform-origin:50% 90%;
+  }
+  @keyframes bounce-shadow {
+      70% { transform:scale(1); }
+      80% { transform:scale(0.75); }
+      90% { transform:scale(1); }
+      95% { transform:scale(0.9); }
+      97% { transform:scale(1); }
+      99% { transform:scale(0.95); }
+      100% { transform:scale(1); }
   }
 
-  .triangleLeft {
-    transform: translateX(0.8em) translateY(-1em) scale(1, -1);
+  /* SHAKE */
+  .duck.shake {
+    animation: shake 2s ease infinite;
   }
+  @keyframes shake {
+    0%, 100% {transform: translateX(0) rotate(0deg);}
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-5px) rotate(-1deg);}
+    20%, 40%, 60%, 80% {transform: translateX(5px) rotate(1deg);}
+  }
+   .shadow_duck.shake {
+    animation: shake-shadow 2s ease infinite;
+  }
+  @keyframes shake-shadow {
+    0%, 100% {transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+    20%, 40%, 60%, 80% {transform: translateX(5px);}
+  }
+
+  /* WOBBLE */
+  .duck.wobble {
+    animation: wobble 1s ease 1;
+  }
+  @keyframes wobble {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-8%) rotate(-5deg); }
+    30% { transform: translateX(7%) rotate(3deg); }
+    45% { transform: translateX(-8%) rotate(-3deg); }
+    60% { transform: translateX(5%) rotate(2deg); }
+    75% { transform: translateX(-2%) rotate(-1deg); }
+    100% { transform: translateX(0%); }
+  }
+  .shadow_duck.wobble {
+    animation: wobble-shadow 1s ease 1;
+  }
+  @keyframes wobble-shadow {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-8%); }
+    30% { transform: translateX(7%); }
+    45% { transform: translateX(-8%); }
+    60% { transform: translateX(5%); }
+    75% { transform: translateX(-2%); }
+    100% { transform: translateX(0%); }
+  }
+
+  /* SQUEEZE */
+  .duck.squeeze {
+    animation: squeeze 0.75s ease 1;
+    -webkit-transform-origin:50% 100%;
+  }
+  @keyframes squeeze {
+    from, to { transform: scale(1, 1); }
+    12% { transform: scale(1.05, 0.9); }
+  }
+  .shadow_duck.squeeze {
+    animation: squeeze-shadow 0.75s ease 1;
+    -webkit-transform-origin:50% 90%;
+  }
+  @keyframes squeeze-shadow {
+    from, to { transform: scale(1, 1); }
+    12% { transform: scale(1.2, 1); }
+  }
+
 </style>
