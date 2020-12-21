@@ -155,8 +155,10 @@ export default {
     async startDucking() {
       // Do not start again if in progress
       if(this.debuggingInProgress) {
+        let quack = this.quacks[this.$helpers.randomBetween(0, this.quacks.length-1)];
+        if(this.currentMessages.length < 6) this.currentMessages.push(quack);
         if(!this.mute) {
-          this.speak(this.quacks[this.$helpers.randomBetween(0, this.quacks.length-1)]);
+          this.speak(quack);
           await this.$helpers.sleep(1000);
         }
       } else {
