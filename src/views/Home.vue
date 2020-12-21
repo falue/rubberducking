@@ -110,7 +110,7 @@ export default {
       synth: window.speechSynthesis,
       voiceList: [],
       Speech: new window.SpeechSynthesisUtterance(),
-      quacks: ["Quack", "Quaack!", "Quack, quack", "Quack!", "Quack eroni.", "Quaaaaak!"],
+      quacks: ["Quack", "Quaack!", "Squieek!", "Quack, quack", "Quack!", "Quack eroni.", "Quaaaaak!"],
     } 
   },
   created() {
@@ -237,9 +237,10 @@ export default {
     },
 
     speak(text) {
+      // this.synth.cancel();  // Cancel talking to not overlap, which does trigger the old text again
       this.Speech.text = text;
       this.Speech.voice = this.voiceList[this.selectedVoice];
-      this.synth.speak(this.Speech);
+      if(!this.speaking) this.synth.speak(this.Speech);  // Do not speak if something else is still saying something
     }
   },
 }
