@@ -30,7 +30,8 @@
           </transition-group>
         </v-col>
 
-        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center relative py-0">
+        <v-col cols="12" xs="12" :sm="debuggingInProgress ? 6 : 12" class="text-center relative py-0"
+        :class="!debuggingInProgress && $vuetify.breakpoint.xsOnly ? 'pt-6 mt-6' : ''">
             <!-- SHADOW -->
             <img
               class="absolute mr-3"
