@@ -268,13 +268,13 @@ export default {
     },
 
     async maybeBlink() {
-      if(this.$helpers.randomBetween(1, 6) === 1) {
+      if(this.$helpers.randomBetween(1, 5) === 1) {
         this.duckSrc = require('../assets/rubberduck_blink.png?v=1');
         await this.$helpers.sleep(this.$helpers.randomBetween(50, 200));
         this.duckSrc = require('../assets/rubberduck.png?v=1');
 
         // Second blink
-        if(this.$helpers.randomBetween(1, 6) === 1) {
+        if(this.$helpers.randomBetween(1, 5) === 1) {
           await this.$helpers.sleep(150);
           this.duckSrc = require('../assets/rubberduck_blink.png?v=1');
           await this.$helpers.sleep(100);
