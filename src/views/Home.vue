@@ -38,7 +38,7 @@
               width="100%"
               style="max-width:550px"
               alt="Logo Shadow"
-              :src="require('../assets/rubberduck_shadow.png')"
+              :src="require('../assets/rubberduck_shadow.png?v=1')"
             >
             <!-- DUCKY -->
             <img
@@ -47,7 +47,7 @@
               width="100%"
               style="max-width:550px"
               alt="Logo"
-              :src="require('../assets/rubberduck.png')"
+              :src="require('../assets/rubberduck.png?v=1')"
               @click="startDucking()"
             >
           <div class="text-right">

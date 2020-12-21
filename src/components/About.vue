@@ -6,7 +6,7 @@
           class="mr-3"
           style="max-width:60px"
           alt="icon"
-          :src="require('../assets/icon.png')"
+          :src="require('../assets/icon.png?v=1')"
         >
         This is a silly website.
       </v-card-title>
