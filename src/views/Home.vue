@@ -414,5 +414,4 @@ export default {
     from, to { transform: scale(1, 1); }
     12% { transform: scale(1.2, 1); }
   }
-
 </style>
