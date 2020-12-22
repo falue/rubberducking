@@ -194,6 +194,7 @@ export default {
           }
           this.spokenMessages = [];
         }
+        this.stage = 0;
         // Clean up at the end
         await this.clearMessages();
         this.debuggingInProgress = false;
