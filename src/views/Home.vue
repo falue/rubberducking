@@ -232,7 +232,9 @@ export default {
       if(this.mute) this.speaking = false;
       await this.clearMessages();
       if(this.$helpers.randomBetween(1, 6) === 1) await this.randomDuckyAction();
-      await this.$helpers.sleep(this.$helpers.randomBetween(5000, 8000));
+      await this.$helpers.sleep(this.$helpers.randomBetween(2500, 4000));
+      this.maybeBlink();
+      await this.$helpers.sleep(this.$helpers.randomBetween(2500, 4000));
     },
 
     prepareBeforeSpoken(text) {
