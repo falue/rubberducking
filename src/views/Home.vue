@@ -8,7 +8,9 @@
     max-width="850"
     elevation="0"
   >
-    <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1> -->
+    <!-- <h1>Stage: {{stage}} - {{messageIndex}}</h1>
+    <v-btn @click="stage++">+</v-btn>
+    <v-btn @click="stage--">-</v-btn> -->
     <v-container class="py-0">
       <v-row>
         <v-col v-if="debuggingInProgress" cols="12" xs="12" sm="6" class="py-0 miny-200"
@@ -180,8 +182,9 @@ export default {
         this.clearMessages();
 
         for(let i = 0; i < this.script.length; i++) {
+          i = this.stage > i ? this.stage : i;  // Allow for manually increment stage
           this.stage = i;
-          // Depending on the state, multiplay this step for certain times.
+          // Depending on the state, multiply this step for certain times.
           let repeats = i === 2 ? 4 : i === 4 ? 6 : 1;
           for(let x = 0; x < repeats; x++) {
             await this.displayMessage();
@@ -192,6 +195,7 @@ export default {
         await this.clearMessages();
         this.debuggingInProgress = false;
         await this.randomDuckyAction();
+        this.maybeBlink(1);
       }
     },
 
