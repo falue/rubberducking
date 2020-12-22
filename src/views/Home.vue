@@ -232,10 +232,13 @@ export default {
         } else {
           this.speak(this.prepareBeforeSpoken(messages[i]));
         }
+        while(this.speaking) {
+          await this.$helpers.sleep(50);
+        }
         await this.$helpers.sleep(this.$helpers.randomBetween(500, 2000));  // wait inbetween 
       }
-      await this.$helpers.sleep(1500);
       if(this.stage < this.script.length-1) {
+        await this.$helpers.sleep(1500);
         //console.log(this.stage);
         this.maybeBlink(5);
         await this.$helpers.sleep(1500);
