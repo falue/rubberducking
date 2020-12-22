@@ -16,7 +16,7 @@
         <br>
         Like this?
         <a href="https://www.buymeacoffee.com/falue" target="_blank">
-          <v-icon x-small class="grey--text">mdi-coffee</v-icon>
+          <v-icon x-small class="primary--text">mdi-coffee</v-icon>
           Buy me a coffee
         </a>
       </div>
