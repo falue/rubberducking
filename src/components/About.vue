@@ -10,14 +10,23 @@
         >
         This is a silly website.
       </v-card-title>
-      <v-card-text>
-      "In software engineering, rubber duck debugging is a method of debugging code. (...)
-      The name is a reference to a story in the book <i>The Pragmatic Programmer</i> in which a programmer would carry around a rubber duck and debug their code by forcing themselves to explain it, line-by-line, to the duck. (...)
-      In describing what the code is supposed to do and observing what it actually does, any incongruity between these two becomes apparent."
-      </v-card-text>
-      <v-card-subtitle class="italics">
-        From <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging" target="_blank">wikipedia.org/wiki/Rubber_duck_debugging</a>
+
+      <v-card-subtitle class="italics py-3">
+        Excerpt from <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging" target="_blank">wikipedia.org/wiki/Rubber_duck_debugging</a>:
       </v-card-subtitle>
+
+      <v-card-text>
+        <p class="px-4 mb-0">
+          "In software engineering, rubber duck debugging is a method of debugging code. (...)
+          The name is a reference to a story in the book <i>The Pragmatic Programmer</i> in which a programmer would carry around a rubber duck and debug their code by forcing themselves to explain it, line-by-line, to the duck. (...)
+          In describing what the code is supposed to do and observing what it actually does, any incongruity between these two becomes apparent."
+        </p>
+      </v-card-text>
+
+      <v-card-text>
+        <Support/>
+      </v-card-text>
+
       <v-card-actions class="pb-5">
         <v-spacer></v-spacer>
         <v-btn small class="primary" @click="dialog=false">
@@ -30,9 +39,14 @@
 </template>
 
 <script>
+import Support from '@/components/Support'
+
 export default {
   name: 'About',
   props: {
+  },
+  components: {
+    Support
   },
 
   data () {
