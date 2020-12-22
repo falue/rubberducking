@@ -14,7 +14,11 @@
         <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="See creative commons license">CC0 1.0</a>
         - 2020
         <br>
-        Like this? <a href="https://paypal.me/fluescher" target="_blank">Please support this project on paypal</a>
+        Like this?
+        <a href="https://www.buymeacoffee.com/falue" target="_blank">
+          <v-icon x-small class="grey--text">mdi-coffee</v-icon>
+          Buy me a coffee
+        </a>
       </div>
     </v-card-title>
     

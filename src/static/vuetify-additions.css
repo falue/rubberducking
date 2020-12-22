@@ -1,4 +1,8 @@
 /*VUETIFY ADDITIONS*/
+a {
+  text-decoration: none;
+}
+
 .absolute { position: absolute; }
 .relative { position: relative; }
 .fixed    { position: fixed;    }
