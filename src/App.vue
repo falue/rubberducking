@@ -8,7 +8,7 @@
     <!-- FOOTER -->
     <v-card-title class="justify-center fixed bottom caption grey--text fill-width" :class="$vuetify.breakpoint.smAndUp ? 'pb-6 mb-6' : ''">
       <div class="text-center">
-        Foolishly made by <a href="http://www.fluescher.ch" target="_blank" class="px-1">Fabian Lüscher</a>
+        Foolishly made by <a href="https://github.com/falue" target="_blank">Fabian Lüscher</a>
         for you <v-icon x-small class="error--text px-1">mdi-heart</v-icon>
         <br>
         <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" title="See creative commons license">CC0 1.0</a>
